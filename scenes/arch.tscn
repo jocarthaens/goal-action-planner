@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://di3m37qi55r8o"]
+
+[ext_resource type="Texture2D" uid="uid://7lj8m0b41c43" path="res://demos/goal_plan/sprites/tundra_ [fencesAndWalls].png" id="1_ncb0f"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7osir"]
+radius = 5.0
+height = 12.0
+
+[node name="Arch" type="Sprite2D"]
+self_modulate = Color(0.929678, 0.752476, 0, 1)
+texture = ExtResource("1_ncb0f")
+offset = Vector2(0, -8)
+region_enabled = true
+region_rect = Rect2(128, 120, 48, 40)
+
+[node name="Collider1" type="StaticBody2D" parent="."]
+position = Vector2(18, 4)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collider1"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7osir")
+metadata/_edit_lock_ = true
+
+[node name="Collider2" type="StaticBody2D" parent="."]
+position = Vector2(-18, 4)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collider2"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7osir")
+metadata/_edit_lock_ = true

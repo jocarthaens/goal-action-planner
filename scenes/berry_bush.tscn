@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://1jgqs3r5u07"]
+
+[ext_resource type="Script" path="res://scripts/berry_bush.gd" id="1_4rn5r"]
+[ext_resource type="Texture2D" uid="uid://ca03fgfv131bj" path="res://sprites/interactable_objects.png" id="1_hkxnm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rancm"]
+radius = 7.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l82xy"]
+radius = 1.99975
+height = 3.99951
+
+[node name="BerryBush" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_4rn5r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_rancm")
+
+[node name="SolidBody" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolidBody"]
+rotation = 1.55509
+shape = SubResource("CapsuleShape2D_l82xy")
+disabled = true
+
+[node name="Sprites" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -4)
+texture = ExtResource("1_hkxnm")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(32, 16, 32, 16)

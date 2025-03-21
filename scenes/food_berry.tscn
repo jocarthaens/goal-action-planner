@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr8mwh20qeb5r"]
+
+[ext_resource type="Script" path="res://scripts/food_item.gd" id="1_e1s15"]
+[ext_resource type="Texture2D" uid="uid://ca03fgfv131bj" path="res://sprites/interactable_objects.png" id="2_d1g3d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8tcn"]
+radius = 5.0
+height = 12.0
+
+[node name="Berry" type="Area2D" node_paths=PackedStringArray("collider_shape")]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_e1s15")
+food_name = "berry"
+collider_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_d8tcn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+rotation = -0.507891
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_d1g3d")
+region_enabled = true
+region_rect = Rect2(80, 32, 16, 16)
+metadata/_edit_lock_ = true

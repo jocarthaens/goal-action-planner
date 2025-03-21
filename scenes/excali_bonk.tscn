@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct8scc76tr7pg"]
+
+[ext_resource type="Script" path="res://scripts/excali_bonk.gd" id="1_e6xkv"]
+[ext_resource type="Texture2D" uid="uid://ca03fgfv131bj" path="res://sprites/interactable_objects.png" id="1_xgnsn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_obj80"]
+radius = 7.0
+height = 18.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f2yqp"]
+radius = 3.0
+height = 8.0
+
+[node name="Excali-Bonk" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_e6xkv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_obj80")
+
+[node name="SolidBody" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SolidBody"]
+position = Vector2(0, -2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_f2yqp")
+disabled = true
+
+[node name="Sprites" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -5)
+texture = ExtResource("1_xgnsn")
+hframes = 2
+frame = 1
+region_enabled = true
+region_rect = Rect2(32, 0, 32, 16)

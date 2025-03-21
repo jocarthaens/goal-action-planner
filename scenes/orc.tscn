@@ -1,0 +1,672 @@
+[gd_scene load_steps=32 format=3 uid="uid://c36okvjpcikqj"]
+
+[ext_resource type="Texture2D" uid="uid://dmmb4pouugwja" path="res://sprites/orc_.png" id="1_bvs28"]
+[ext_resource type="Script" path="res://scripts/orc/orc.gd" id="1_if85t"]
+[ext_resource type="Texture2D" uid="uid://ca03fgfv131bj" path="res://sprites/interactable_objects.png" id="2_mlsuj"]
+[ext_resource type="Script" path="res://scripts/orc/orcplanner_ai.gd" id="4_e8udu"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_bonk_satyr.gd" id="4_f3xfa"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_wander_off.gd" id="4_rdat2"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_pursue_satyr.gd.gd" id="7_l3n3c"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_get_club.gd" id="7_mn8l4"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_gather_berries.gd" id="8_piudm"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_butcher_boar (2).gd" id="9_066nu"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_chase_boar.gd.gd" id="9_r4dmm"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_get_food.gd" id="10_iudw4"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_get_taco.gd" id="12_g062l"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_hide.gd" id="12_l4hjm"]
+[ext_resource type="Script" path="res://scripts/orc/orcplan_panic.gd" id="14_plsq4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_axen2"]
+radius = 4.0
+height = 8.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kv0dl"]
+radius = 8.0
+height = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mywev"]
+radius = 160.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6vwy"]
+bg_color = Color(0.203922, 0.203922, 0.203922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u30sk"]
+bg_color = Color(0.178696, 0.450084, 0.256789, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73ewl"]
+bg_color = Color(0.747507, 0.390069, 0.184428, 1)
+
+[sub_resource type="Animation" id="Animation_kkxp2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrcSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bonker:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.523599]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bonker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3, -1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bonker/BonkerShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OrcSprites:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uxqcn"]
+resource_name = "idle_left"
+length = 0.6666
+step = 0.1667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrcSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3334, 0.5001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OrcSprites:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bonker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(3, -1), Vector2(3, 0), Vector2(3, 1), Vector2(3, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bonker:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.523599]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bonker/BonkerShape:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_eysqr"]
+resource_name = "idle_left"
+length = 0.6666
+step = 0.1667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrcSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3334, 0.5001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OrcSprites:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bonker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-3, -1), Vector2(-3, -1.19209e-07), Vector2(-3, 1), Vector2(-3, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bonker:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.523599]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bonker/BonkerShape:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_r61df"]
+resource_name = "melee_right"
+length = 0.6667
+step = 0.1667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrcSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0680988, 0.141133, 0.5001, 0.601311),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bonker:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0707767, 0.142941, 0.41217, 0.514866, 0.609246),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(3, -1), Vector2(2, 0), Vector2(1, 1), Vector2(1, 1), Vector2(2, 0), Vector2(3, -1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bonker:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0713164, 0.14467, 0.368808, 0.516077, 0.609895),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.309, -0.523599, -2.0944, -2.0944, -0.523599, 0.608953]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bonker/BonkerShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.00203761, 0.0957677, 0.246551),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OrcSprites:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_5vdan"]
+resource_name = "melee_right"
+length = 0.6667
+step = 0.1667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrcSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0680988, 0.141133, 0.5001, 0.601311),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bonker:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0669037, 0.143691, 0.262293, 0.497976, 0.599058),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-3, -1), Vector2(-2, 0), Vector2(-1, 1), Vector2(-1, 1), Vector2(-2, 0), Vector2(-3, -1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bonker:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0855797, 0.166667, 0.333333, 0.498366, 0.598209),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.309, 0.785398, 2.0944, 2.0944, 0.785398, -0.58237]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bonker/BonkerShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.00203761, 0.0957677, 0.246551),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OrcSprites:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_idyi3"]
+resource_name = "walk_right"
+length = 0.6667
+step = 0.1667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrcSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3334, 0.5001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OrcSprites:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bonker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(3, -2), Vector2(3, -3), Vector2(3, -2), Vector2(3, -1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bonker:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.523599]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bonker/BonkerShape:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_6vaed"]
+resource_name = "walk_right"
+length = 0.6667
+step = 0.1667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrcSprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3334, 0.5001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OrcSprites:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bonker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-3, -2), Vector2(-3, -3), Vector2(-3, -2), Vector2(-3, -1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bonker:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.523599]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bonker/BonkerShape:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rvxbw"]
+_data = {
+"RESET": SubResource("Animation_kkxp2"),
+"idle_left": SubResource("Animation_uxqcn"),
+"idle_right": SubResource("Animation_eysqr"),
+"melee_left": SubResource("Animation_r61df"),
+"melee_right": SubResource("Animation_5vdan"),
+"walk_left": SubResource("Animation_idyi3"),
+"walk_right": SubResource("Animation_6vaed")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_vl053"]
+font_size = 12
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3ilvr"]
+radius = 3.60152
+height = 14.1695
+
+[node name="Orc" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_if85t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_axen2")
+
+[node name="Collector" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_kv0dl")
+
+[node name="Sensor" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+collision_layer = 0
+collision_mask = 14
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor"]
+shape = SubResource("CircleShape2D_mywev")
+metadata/_edit_lock_ = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(20, 0)
+
+[node name="SatiationBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -14.0
+offset_top = -21.0
+offset_right = 14.0
+offset_bottom = -18.0
+theme_override_styles/background = SubResource("StyleBoxFlat_m6vwy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_u30sk")
+max_value = 10.0
+step = 1.0
+show_percentage = false
+
+[node name="SatiationIcon" type="Sprite2D" parent="SatiationBar"]
+position = Vector2(-4, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_mlsuj")
+region_enabled = true
+region_rect = Rect2(32, 48, 16, 16)
+
+[node name="BonkerHP" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_top = -27.0
+offset_right = 14.0
+offset_bottom = -24.0
+theme_override_styles/background = SubResource("StyleBoxFlat_m6vwy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_73ewl")
+max_value = 3.0
+step = 1.0
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BonkerHP"]
+position = Vector2(-4, -5.96046e-08)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_mlsuj")
+region_enabled = true
+region_rect = Rect2(96, 32, 16, 16)
+
+[node name="OrcSprites" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("1_bvs28")
+hframes = 8
+vframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_rvxbw")
+}
+
+[node name="ActionLabel" type="Label" parent="."]
+unique_name_in_owner = true
+z_index = 1
+offset_left = -56.0
+offset_top = -49.0
+offset_right = 56.0
+offset_bottom = -26.0
+text = "Text"
+label_settings = SubResource("LabelSettings_vl053")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlannerAI" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_e8udu")
+actor = NodePath("..")
+shuffle_if_same_cost = true
+
+[node name="GetClub" type="Node" parent="PlannerAI"]
+script = ExtResource("7_mn8l4")
+
+[node name="PursueSatyr" type="Node" parent="PlannerAI"]
+script = ExtResource("7_l3n3c")
+
+[node name="BonkSatyr" type="Node" parent="PlannerAI"]
+script = ExtResource("4_f3xfa")
+
+[node name="GetTaco" type="Node" parent="PlannerAI"]
+script = ExtResource("12_g062l")
+
+[node name="ChaseBoar" type="Node" parent="PlannerAI"]
+script = ExtResource("9_r4dmm")
+action_cost = 4
+
+[node name="ButcherBoar" type="Node" parent="PlannerAI"]
+script = ExtResource("9_066nu")
+action_cost = 4
+
+[node name="GetFood" type="Node" parent="PlannerAI"]
+script = ExtResource("10_iudw4")
+action_cost = 2
+
+[node name="GatherBerries" type="Node" parent="PlannerAI"]
+script = ExtResource("8_piudm")
+action_cost = 15
+
+[node name="Panic" type="Node" parent="PlannerAI"]
+script = ExtResource("14_plsq4")
+action_cost = 5
+
+[node name="Hide" type="Node" parent="PlannerAI"]
+script = ExtResource("12_l4hjm")
+action_cost = 2
+
+[node name="WanderOff" type="Node" parent="PlannerAI"]
+script = ExtResource("4_rdat2")
+action_cost = 20
+
+[node name="Bonker" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-3, -1)
+rotation = -0.523599
+collision_layer = 2
+collision_mask = 8
+
+[node name="BonkerShape" type="CollisionShape2D" parent="Bonker"]
+position = Vector2(-0.0820111, -9.99966)
+shape = SubResource("CapsuleShape2D_3ilvr")
+disabled = true
+metadata/_edit_lock_ = true
+
+[node name="BonkerSprite" type="Sprite2D" parent="Bonker"]
+position = Vector2(0.313709, -7.68629)
+rotation = -0.785398
+texture = ExtResource("2_mlsuj")
+region_enabled = true
+region_rect = Rect2(96, 32, 16, 16)
+metadata/_edit_lock_ = true
+
+[connection signal="area_entered" from="Collector" to="." method="_on_collector_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+[connection signal="area_entered" from="Bonker" to="." method="_on_bonker_hit"]
